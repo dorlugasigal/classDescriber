@@ -7,14 +7,27 @@
   "targets": {
     ".NETCoreApp,Version=v3.1": {
       "ClassDescriber.Demo/1.0.0": {
+        "dependencies": {
+          "ClassDescriber.Library": "1.0.0"
+        },
         "runtime": {
           "ClassDescriber.Demo.dll": {}
+        }
+      },
+      "ClassDescriber.Library/1.0.0": {
+        "runtime": {
+          "ClassDescriber.Library.dll": {}
         }
       }
     }
   },
   "libraries": {
     "ClassDescriber.Demo/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "ClassDescriber.Library/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

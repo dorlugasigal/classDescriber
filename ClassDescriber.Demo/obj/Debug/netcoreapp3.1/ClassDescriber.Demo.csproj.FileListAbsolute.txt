@@ -8,3 +8,7 @@ C:\Projects\ClassDescriber\ClassDescriber.Demo\obj\Debug\netcoreapp3.1\ClassDesc
 C:\Projects\ClassDescriber\ClassDescriber.Demo\obj\Debug\netcoreapp3.1\ClassDescriber.Demo.AssemblyInfo.cs
 C:\Projects\ClassDescriber\ClassDescriber.Demo\obj\Debug\netcoreapp3.1\ClassDescriber.Demo.dll
 C:\Projects\ClassDescriber\ClassDescriber.Demo\obj\Debug\netcoreapp3.1\ClassDescriber.Demo.pdb
+C:\Projects\ClassDescriber\ClassDescriber.Demo\bin\Debug\netcoreapp3.1\ClassDescriber.Library.dll
+C:\Projects\ClassDescriber\ClassDescriber.Demo\bin\Debug\netcoreapp3.1\ClassDescriber.Library.pdb
+C:\Projects\ClassDescriber\ClassDescriber.Demo\obj\Debug\netcoreapp3.1\ClassDescriber.Demo.csprojAssemblyReference.cache
+C:\Projects\ClassDescriber\ClassDescriber.Demo\obj\Debug\netcoreapp3.1\ClassDescriber.Demo.csproj.CopyComplete
