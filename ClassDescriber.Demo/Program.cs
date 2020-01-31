@@ -29,7 +29,7 @@ namespace ClassDescriber.Demo
 
 
             IEnumerable<Person> arr = new List<Person> { per1 };
-            Console.Write(Describer.Describe("asd"));
+            Console.Write(Describer.Describe(arr));
         }
 
 
