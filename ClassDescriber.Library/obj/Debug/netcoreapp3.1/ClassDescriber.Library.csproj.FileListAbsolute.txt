@@ -5,3 +5,4 @@ C:\Projects\ClassDescriber\ClassDescriber.Library\obj\Debug\netcoreapp3.1\ClassD
 C:\Projects\ClassDescriber\ClassDescriber.Library\obj\Debug\netcoreapp3.1\ClassDescriber.Library.AssemblyInfo.cs
 C:\Projects\ClassDescriber\ClassDescriber.Library\obj\Debug\netcoreapp3.1\ClassDescriber.Library.dll
 C:\Projects\ClassDescriber\ClassDescriber.Library\obj\Debug\netcoreapp3.1\ClassDescriber.Library.pdb
+C:\Projects\ClassDescriber\ClassDescriber.Library\obj\Debug\netcoreapp3.1\ClassDescriber.Library.csprojAssemblyReference.cache

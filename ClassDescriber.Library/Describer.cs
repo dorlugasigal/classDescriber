@@ -1,15 +1,17 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
+using System.Reflection.Metadata;
 using System.Text;
+using ClassDescriber.Library.Extensions;
 
 namespace ClassDescriber.Library
 {
     public class Describer
     {
         private int _level;
-        private const int IndentationSize = 2;
         private readonly StringBuilder _output;
         private readonly HashSet<object> _propsUsed;
 
@@ -21,22 +23,29 @@ namespace ClassDescriber.Library
 
         public static string Describe(object element)
         {
-            var instance = new Describer();
-            return instance.DescribeElement(element);
+            try
+            {
+                var instance = new Describer();
+                return instance.DescribeElement(element);
+            }
+            catch (Exception)
+            {
+                return "Error Parsing Object";
+            }
         }
 
         private string DescribeElement(object element)
         {
             if (IsSimple(element))
             {
-                Write(FormatValue(element));
+                AppendOutput(ObjectSegregation(element));
             }
             else
             {
                 var objectType = element.GetType();
                 if (!typeof(IEnumerable).IsAssignableFrom(objectType))
                 {
-                    Write($"{objectType.Name}");
+                    AppendOutput($"Object of Class {objectType.Name}");
                     _propsUsed.Add(element);
                     _level++;
                 }
@@ -80,13 +89,13 @@ namespace ClassDescriber.Library
 
                         if (type.IsValueType || type == typeof(string))
                         {
-                            Write($"{memberInfo.Name}: {FormatValue(value)}");
+                            AppendOutput($"{memberInfo.Name}: {ObjectSegregation(value)}");
                         }
                         else
                         {
                             var isEnumerable = typeof(IEnumerable).IsAssignableFrom(type);
-                            var addition = isEnumerable ? "..." : "{ }";
-                            Write($"{memberInfo.Name}: {addition}");
+                            var addition = isEnumerable ? "Enumerable :" : "";
+                            AppendOutput($"{memberInfo.Name} {addition}");
 
                             var alreadyTouched = !isEnumerable && AlreadyTouched(value);
                             _level++;
@@ -94,7 +103,6 @@ namespace ClassDescriber.Library
                             {
                                 DescribeElement(value);
                             }
-
                             _level--;
                         }
                     }
@@ -116,45 +124,28 @@ namespace ClassDescriber.Library
 
         private bool AlreadyTouched(object value)
         {
-            if (value == null)
-            {
-                return false;
-            }
-
-            foreach (var t in _propsUsed)
-            {
-                if (t == value)
-                {
-                    return true;
-                }
-            }
-            return false;
+            return value != null && _propsUsed.Select(x => x == value).Any();
         }
 
-        private void Write(string value, params object[] args)
+        private void AppendOutput(string value)
         {
-            var space = new string(' ', _level * IndentationSize);
-
-            if (args != null)
-                value = string.Format(value, args);
-
-            _output.AppendLine(space + value);
+            _output.AppendLine(' '.Repeat(_level * 2) + value);
         }
 
-        private static string FormatValue(object o)
+        private static string ObjectSegregation(object obj)
         {
-            switch (o)
+            switch (obj)
             {
                 case null:
                     return ("null");
                 case DateTime time:
                     return (time.ToShortDateString());
                 case string _:
-                    return $"\"{o}\"";
+                    return $"\"{obj}\"";
                 case char c when c == '\0':
                     return string.Empty;
                 case ValueType _:
-                    return (o.ToString());
+                    return (obj.ToString());
                 case IEnumerable _:
                     return ("...");
                 default:
