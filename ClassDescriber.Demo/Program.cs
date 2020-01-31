@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Net.Sockets;
 using ClassDescriber.Library;
+using Microsoft.VisualBasic.CompilerServices;
 
 namespace ClassDescriber.Demo
 {
@@ -28,7 +29,7 @@ namespace ClassDescriber.Demo
 
 
             IEnumerable<Person> arr = new List<Person> { per1 };
-            Console.Write(Describer.Describe(arr));
+            Console.Write(Describer.Describe("asd"));
         }
 
 

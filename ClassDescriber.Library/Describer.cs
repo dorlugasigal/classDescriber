@@ -9,24 +9,35 @@ using ClassDescriber.Library.Extensions;
 
 namespace ClassDescriber.Library
 {
+    /// <summary>
+    /// Describer class, purpose of the class is to Serialize any struct object
+    /// with Reflection API
+    /// </summary>
     public class Describer
     {
-        private int _level;
+        private int _indentationLevel;
         private readonly StringBuilder _output;
         private readonly HashSet<object> _propsUsed;
 
+        /// <summary>
+        /// private constructor
+        /// </summary>
         private Describer()
         {
             _output = new StringBuilder();
             _propsUsed = new HashSet<object>();
         }
 
-        public static string Describe(object element)
+        /// <summary>
+        /// activator function, creates an instance and begin parsing the object
+        /// </summary>
+        /// <param name="prop"> the required element</param>
+        /// <returns></returns>
+        public static string Describe(object prop)
         {
             try
             {
-                var instance = new Describer();
-                return instance.DescribeElement(element);
+                return new Describer().DescribeProp(prop);
             }
             catch (Exception)
             {
@@ -34,83 +45,82 @@ namespace ClassDescriber.Library
             }
         }
 
-        private string DescribeElement(object element)
+        private string DescribeProp(object input)
         {
-            if (IsSimple(element))
+            if (IsSimple(input))
             {
-                AppendOutput(ObjectSegregation(element));
+                AppendOutput(ObjectSegregation(input));
             }
             else
             {
-                var objectType = element.GetType();
-                if (!typeof(IEnumerable).IsAssignableFrom(objectType))
+                var inputType = input.GetType();
+                if (!typeof(IEnumerable).IsAssignableFrom(inputType))
                 {
-                    AppendOutput($"Object of Class {objectType.Name}");
-                    _propsUsed.Add(element);
-                    _level++;
+                    AppendOutput($"Object of Class {inputType.Name}");
+                    _propsUsed.Add(input);
+                    _indentationLevel++;
                 }
 
-                if (element is IEnumerable enumerableElement)
+                if (input is IEnumerable sameItemButEnumerable)
                 {
-                    foreach (var item in enumerableElement)
+                    foreach (var innerProp in sameItemButEnumerable)
                     {
-                        if (item is IEnumerable && !(item is string))
+                        if (innerProp is IEnumerable _ && !(innerProp is string))
                         {
-                            _level++;
-                            DescribeElement(item);
-                            _level--;
+                            _indentationLevel++;
+                            DescribeProp(innerProp);
+                            _indentationLevel--;
                         }
                         else
                         {
-                            if (!AlreadyTouched(item))
-                            {
-                                DescribeElement(item);
-                            }
+                            if (WasShownBefore(innerProp)) continue;
+                            DescribeProp(innerProp);
                         }
                     }
                 }
                 else
                 {
-                    var members = element.GetType().GetMembers(BindingFlags.Public | BindingFlags.Instance);
-                    foreach (var memberInfo in members)
+                    var innerProps = input.GetType().GetMembers(BindingFlags.Public | BindingFlags.Instance);
+                    foreach (var innerProp in innerProps)
                     {
-                        var fieldInfo = memberInfo as FieldInfo;
-                        var propertyInfo = memberInfo as PropertyInfo;
+                        var fieldInfo = innerProp as FieldInfo;
+                        var propertyInfo = innerProp as PropertyInfo;
 
                         if (fieldInfo == null && propertyInfo == null)
                         {
                             continue;
                         }
 
-                        var type = fieldInfo != null ? fieldInfo.FieldType : propertyInfo.PropertyType;
-                        var value = fieldInfo != null
-                            ? fieldInfo.GetValue(element)
-                            : propertyInfo.GetValue(element, null);
+                        var fieldType = fieldInfo != null ? fieldInfo.FieldType : propertyInfo.PropertyType;
+                        var fieldValue = fieldInfo != null
+                            ? fieldInfo.GetValue(input)
+                            : propertyInfo.GetValue(input, null);
+                        if (fieldValue == null) throw new ArgumentNullException(nameof(fieldValue));
 
-                        if (type.IsValueType || type == typeof(string))
+                        if (fieldType.IsValueType || fieldType == typeof(string))
                         {
-                            AppendOutput($"{memberInfo.Name}: {ObjectSegregation(value)}");
+                            AppendOutput($"{innerProp.Name}: {ObjectSegregation(fieldValue)}");
                         }
                         else
                         {
-                            var isEnumerable = typeof(IEnumerable).IsAssignableFrom(type);
+                            var isEnumerable = typeof(IEnumerable).IsAssignableFrom(fieldType);
                             var addition = isEnumerable ? "Enumerable :" : "";
-                            AppendOutput($"{memberInfo.Name} {addition}");
+                            AppendOutput($"{innerProp.Name} {addition}");
 
-                            var alreadyTouched = !isEnumerable && AlreadyTouched(value);
-                            _level++;
-                            if (!alreadyTouched)
+                            var wasShownBefore = !isEnumerable && WasShownBefore(fieldValue);
+                            _indentationLevel++;
+                            if (!wasShownBefore)
                             {
-                                DescribeElement(value);
+                                DescribeProp(fieldValue);
                             }
-                            _level--;
+                            _indentationLevel--;
                         }
                     }
                 }
 
-                if (!typeof(IEnumerable).IsAssignableFrom(objectType))
+                if (!typeof(IEnumerable).IsAssignableFrom(inputType))
                 {
-                    _level--;
+                    _indentationLevel--;
                 }
             }
 
@@ -122,16 +132,14 @@ namespace ClassDescriber.Library
             return element == null || element is ValueType || element is string;
         }
 
-        private bool AlreadyTouched(object value)
+        private bool WasShownBefore(object value)
         {
             return value != null && _propsUsed.Select(x => x == value).Any();
         }
-
         private void AppendOutput(string value)
         {
-            _output.AppendLine(' '.Repeat(_level * 2) + value);
+            _output.AppendLine(' '.Repeat(_indentationLevel * 2) + value);
         }
-
         private static string ObjectSegregation(object obj)
         {
             switch (obj)

@@ -92,3 +92,5 @@ C:\Projects\ClassDescriber\ClassDescriber.Tests\obj\Debug\netcoreapp3.1\ClassDes
 C:\Projects\ClassDescriber\ClassDescriber.Tests\obj\Debug\netcoreapp3.1\ClassDescriber.Tests.csproj.CopyComplete
 C:\Projects\ClassDescriber\ClassDescriber.Tests\obj\Debug\netcoreapp3.1\ClassDescriber.Tests.dll
 C:\Projects\ClassDescriber\ClassDescriber.Tests\obj\Debug\netcoreapp3.1\ClassDescriber.Tests.pdb
+C:\Projects\ClassDescriber\ClassDescriber.Tests\bin\Debug\netcoreapp3.1\ClassDescriber.Library.dll
+C:\Projects\ClassDescriber\ClassDescriber.Tests\bin\Debug\netcoreapp3.1\ClassDescriber.Library.pdb
