@@ -1,0 +1,10 @@
+C:\Projects\ClassDescriber\ClassDescriber.Demo\bin\Debug\netcoreapp3.1\ClassDescriber.Demo.exe
+C:\Projects\ClassDescriber\ClassDescriber.Demo\bin\Debug\netcoreapp3.1\ClassDescriber.Demo.deps.json
+C:\Projects\ClassDescriber\ClassDescriber.Demo\bin\Debug\netcoreapp3.1\ClassDescriber.Demo.runtimeconfig.json
+C:\Projects\ClassDescriber\ClassDescriber.Demo\bin\Debug\netcoreapp3.1\ClassDescriber.Demo.runtimeconfig.dev.json
+C:\Projects\ClassDescriber\ClassDescriber.Demo\bin\Debug\netcoreapp3.1\ClassDescriber.Demo.dll
+C:\Projects\ClassDescriber\ClassDescriber.Demo\bin\Debug\netcoreapp3.1\ClassDescriber.Demo.pdb
+C:\Projects\ClassDescriber\ClassDescriber.Demo\obj\Debug\netcoreapp3.1\ClassDescriber.Demo.AssemblyInfoInputs.cache
+C:\Projects\ClassDescriber\ClassDescriber.Demo\obj\Debug\netcoreapp3.1\ClassDescriber.Demo.AssemblyInfo.cs
+C:\Projects\ClassDescriber\ClassDescriber.Demo\obj\Debug\netcoreapp3.1\ClassDescriber.Demo.dll
+C:\Projects\ClassDescriber\ClassDescriber.Demo\obj\Debug\netcoreapp3.1\ClassDescriber.Demo.pdb

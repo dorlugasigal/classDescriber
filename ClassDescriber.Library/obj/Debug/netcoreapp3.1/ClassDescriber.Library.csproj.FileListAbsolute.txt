@@ -1,0 +1,7 @@
+C:\Projects\ClassDescriber\ClassDescriber.Library\bin\Debug\netcoreapp3.1\ClassDescriber.Library.deps.json
+C:\Projects\ClassDescriber\ClassDescriber.Library\bin\Debug\netcoreapp3.1\ClassDescriber.Library.dll
+C:\Projects\ClassDescriber\ClassDescriber.Library\bin\Debug\netcoreapp3.1\ClassDescriber.Library.pdb
+C:\Projects\ClassDescriber\ClassDescriber.Library\obj\Debug\netcoreapp3.1\ClassDescriber.Library.AssemblyInfoInputs.cache
+C:\Projects\ClassDescriber\ClassDescriber.Library\obj\Debug\netcoreapp3.1\ClassDescriber.Library.AssemblyInfo.cs
+C:\Projects\ClassDescriber\ClassDescriber.Library\obj\Debug\netcoreapp3.1\ClassDescriber.Library.dll
+C:\Projects\ClassDescriber\ClassDescriber.Library\obj\Debug\netcoreapp3.1\ClassDescriber.Library.pdb
